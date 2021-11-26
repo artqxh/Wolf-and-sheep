@@ -11,7 +11,7 @@ class Game:
         if j > 0 and A[i - 1, j - 1] == 0:
             A[i, j] = 0
             A[i - 1, j - 1] = 1
-            print(A)
+            self.rotate_matrix()
 
         else:
             print('Wrong direction')
@@ -22,6 +22,7 @@ class Game:
             A[i, j] = 0
             A[i - 1, j + 1] = 1
             print(A)
+            self.rotate_matrix()
 
         else:
             print('Wrong direction')
@@ -31,7 +32,7 @@ class Game:
         if j < 7 and A[i + 1, j + 1] == 0:
             A[i, j] = 0
             A[i + 1, j + 1] = 1
-            print(A)
+            self.rotate_matrix()
 
         else:
             print('Wrong direction')
@@ -41,7 +42,7 @@ class Game:
         if j > 0 and A[i + 1, j - 1] == 0:
             A[i, j] = 0
             A[i + 1, j - 1] = 1
-            print(A)
+            self.rotate_matrix()
 
         else:
             print('Wrong direction')
@@ -51,13 +52,7 @@ class Game:
         if j < 7 and A[i + 1, j + 1] == 0:
             A[i, j] = 0
             A[i + 1, j + 1] = 2
-            print(A)
-
-        elif j < 6 and A[i + 1, j + 1] == 1:
-            A[i, j] = 0
-            A[i + 1, j + 1] = 0
-            A[i + 2, j + 2] = 2
-            print(A)
+            self.normal_matrix()
 
         else:
             print('Wrong direction')
@@ -67,13 +62,7 @@ class Game:
         if j > 0 and A[i + 1, j - 1] == 0:
             A[i, j] = 0
             A[i + 1, j - 1] = 2
-            print(A)
-
-        elif j > 1 and A[i + 1, j - 1] == 1:
-            A[i, j] = 0
-            A[i + 1, j - 1] = 0
-            A[i + 2, j - 2] = 2
-            print(A)
+            self.normal_matrix()
 
         else:
             print('Wrong direction')
@@ -87,6 +76,28 @@ class Game:
                 or (l == 0 and (A[k - 1, l + 1] and A[k + 1, l + 1]) == 2) or (l == 7 and (A[k - 1, l - 1] and A[k + 1, l - 1]) == 2):
             wolf_loses.append('wolf loses')
             print('Sheep wins')
+
+
+    def normal_matrix(self):
+        i = 0
+        while i <= 7:
+            j = 0
+            while j <= 7:
+                print(A[i][j], end=" ")
+                j = j + 1
+            print()
+            i = i + 1
+
+
+    def rotate_matrix(self):
+        i = 7
+        while i >= 0:
+            j = 7
+            while j >= 0:
+                print(A[i][j], end=" ")
+                j = j - 1
+            print()
+            i = i - 1
 
 
     def moves(self):
