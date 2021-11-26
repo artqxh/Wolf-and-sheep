@@ -7,32 +7,40 @@ class Game:
         self.move = move
 
 
-    def wolf_move_left(self):
+    def wolf_move_forward_left(self):
         if j > 0 and A[i - 1, j - 1] == 0:
             A[i, j] = 0
             A[i - 1, j - 1] = 1
-            print(A)
-
-        elif j > 1 and A[i - 1, j - 1] == 2:
-            A[i, j] = 0
-            A[i - 1, j - 1] = 0
-            A[i - 2, j - 2] = 1
             print(A)
 
         else:
             print('Wrong direction')
 
 
-    def wolf_move_right(self):
+    def wolf_move_forward_right(self):
         if j < 7 and A[i - 1, j + 1] == 0:
             A[i, j] = 0
             A[i - 1, j + 1] = 1
             print(A)
 
-        elif j < 6 and A[i - 1, j + 1] == 2:
+        else:
+            print('Wrong direction')
+
+
+    def wolf_move_backward_right(self):
+        if j < 7 and A[i + 1, j + 1] == 0:
             A[i, j] = 0
-            A[i - 1, j + 1] = 0
-            A[i - 2, j + 2] = 1
+            A[i + 1, j + 1] = 1
+            print(A)
+
+        else:
+            print('Wrong direction')
+
+
+    def wolf_move_backward_left(self):
+        if j > 0 and A[i + 1, j - 1] == 0:
+            A[i, j] = 0
+            A[i + 1, j - 1] = 1
             print(A)
 
         else:
@@ -71,37 +79,57 @@ class Game:
             print('Wrong direction')
 
 
+    def wolf_cant_moves(self):
+        if ((j > 0 and j < 7 ) and (A[i - 1, j - 1] == 2 and A[i + 1, j + 1] == 2 and A[i - 1, j + 1] == 2 and A[i + 1, j - 1] == 2)) \
+                or (j == 0 and (A[i - 1, j + 1] and A[i + 1, j + 1]) == 2) or (j == 7 and (A[i - 1, j - 1] and A[i + 1, j - 1]) == 2):
+            wolf_loose.append('wolf loose')
+
+
     def moves(self):
         if self.number in y:
-            if A[i, j] == 1:
-                if self.move == 'l':
-                    self.wolf_move_left()
+                if A[i, j] == 1:
+                    if self.move == 'fl':
+                        self.wolf_move_forward_left()
+                        self.wolf_cant_moves()
 
-                elif self.move == 'r':
-                    self.wolf_move_right()
+                    elif self.move == 'fr':
+                        self.wolf_move_forward_right()
+                        self.wolf_cant_moves()
 
-                else:
-                    print('Wrong direction')
+                    elif self.move == 'bl':
+                        self.wolf_move_backward_left()
+                        self.wolf_cant_moves()
 
-            elif A[i, j] == 2:
-                if self.move == 'l':
-                    self.sheep_move_left()
+                    elif self.move == 'br':
+                        self.wolf_move_backward_right()
+                        self.wolf_cant_moves()
 
-                elif self.move == 'r':
-                    self.sheep_move_right()
+                    else:
+                        print('Wrong direction')
 
-                else:
-                    print('Wrong direction')
+                elif A[i, j] == 2:
+                    if self.move == 'l':
+                        self.sheep_move_left()
+                        self.wolf_cant_moves()
+
+
+                    elif self.move == 'r':
+                        self.sheep_move_right()
+                        self.wolf_cant_moves()
+
+
+                    else:
+                        print('Wrong direction')
 
 
 A = np.array([[0, 2, 0, 2, 0, 2, 0, 2],
               [0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 1, 0, 0, 0, 0, 0]])
+              [0, 0, 0, 0, 2, 0, 0, 0],
+              [0, 2, 0, 0, 0, 0, 0, 0],
+              [0, 0, 1, 0, 0, 0, 0, 0],
+              [0, 2, 0, 2, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0, 0, 0, 0],
+              [0, 2, 0, 0, 0, 0, 0, 0]])
 
 
 B = np.array([['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8'],
@@ -116,8 +144,9 @@ B = np.array([['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8'],
 
 print(A)
 
+wolf_loose = []
 
-while list(A[7]).count(2) == False and list(A[0]).count(1) == False:
+while list(A[0]).count(1) == False and not wolf_loose:
     number, move = input("Enter a number of checker and move (l/r): ").split()
     game = Game(number=number, move=move)
 
