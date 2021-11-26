@@ -80,9 +80,13 @@ class Game:
 
 
     def wolf_cant_moves(self):
-        if ((j > 0 and j < 7 ) and (A[i - 1, j - 1] == 2 and A[i + 1, j + 1] == 2 and A[i - 1, j + 1] == 2 and A[i + 1, j - 1] == 2)) \
-                or (j == 0 and (A[i - 1, j + 1] and A[i + 1, j + 1]) == 2) or (j == 7 and (A[i - 1, j - 1] and A[i + 1, j - 1]) == 2):
-            wolf_loose.append('wolf loose')
+        coordinates = np.where(A == 1)
+        k = coordinates[0]
+        l = coordinates[1]
+        if ((l > 0 and l < 7 ) and (A[k - 1, l - 1] == 2 and A[k + 1, l + 1] == 2 and A[k - 1, l + 1] == 2 and A[k + 1, l - 1] == 2)) \
+                or (l == 0 and (A[k - 1, l + 1] and A[k + 1, l + 1]) == 2) or (l == 7 and (A[k - 1, l - 1] and A[k + 1, l - 1]) == 2):
+            wolf_loses.append('wolf loses')
+            print('Sheep wins')
 
 
     def moves(self):
@@ -124,12 +128,12 @@ class Game:
 
 A = np.array([[0, 2, 0, 2, 0, 2, 0, 2],
               [0, 0, 0, 0, 0, 0, 0, 0],
-              [0, 0, 0, 0, 2, 0, 0, 0],
-              [0, 2, 0, 0, 0, 0, 0, 0],
-              [0, 0, 1, 0, 0, 0, 0, 0],
-              [0, 2, 0, 2, 0, 0, 0, 0],
-              [1, 0, 0, 0, 0, 0, 0, 0],
-              [0, 2, 0, 0, 0, 0, 0, 0]])
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 0],
+              [0, 0, 0, 1, 0, 0, 0, 0]])
 
 
 B = np.array([['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8'],
@@ -144,9 +148,9 @@ B = np.array([['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8'],
 
 print(A)
 
-wolf_loose = []
+wolf_loses = []
 
-while list(A[0]).count(1) == False and not wolf_loose:
+while not list(A[0]).count(1) and not wolf_loses:
     number, move = input("Enter a number of checker and move (l/r): ").split()
     game = Game(number=number, move=move)
 
