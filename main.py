@@ -21,7 +21,6 @@ class Game:
         if j < 7 and A[i - 1, j + 1] == 0:
             A[i, j] = 0
             A[i - 1, j + 1] = 1
-            print(A)
             self.rotate_matrix()
 
         else:
@@ -80,28 +79,57 @@ class Game:
 
     def normal_matrix(self):
         i = 0
+        number = 8
         while i <= 7:
             j = 0
-            while j <= 7:
-                print(A[i][j], end=" ")
-                j = j + 1
+            while j <= 8:
+                if j < 8:
+                    print(A[i][j], end=" ")
+                    j += 1
+                else:
+                    print('|', number, end=" ")
+                    number -= 1
+                    j += 1
             print()
-            i = i + 1
+            i += 1
+            if i > 7:
+                indexes = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+                for k in indexes:
+                    print('-', end=" ")
+                print()
+                for l in indexes:
+                    print(l, end=" ")
+        print('')
 
 
     def rotate_matrix(self):
         i = 7
+        number = 1
         while i >= 0:
-            j = 7
+            j = 8
             while j >= 0:
-                print(A[i][j], end=" ")
-                j = j - 1
+                if j > 0:
+                    print(A[i][j-1], end=" ")
+                    j = j - 1
+                else:
+                    print('|', number, end=" ")
+                    number += 1
+                    j -= 1
             print()
-            i = i - 1
+            i -= 1
+            if i < 0:
+                indexes = ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a']
+                for k in indexes:
+                    print('-', end=" ")
+                print()
+                for l in indexes:
+                    print(l, end=" ")
+        print('')
 
 
     def moves(self):
         if self.number in y:
+            try:
                 if A[i, j] == 1:
                     if self.move == 'fl':
                         self.wolf_move_forward_left()
@@ -135,6 +163,8 @@ class Game:
 
                     else:
                         print('Wrong direction')
+            except:
+                print('Wrong direction')
 
 
 A = np.array([[0, 2, 0, 2, 0, 2, 0, 2],
@@ -157,12 +187,37 @@ B = np.array([['a8', 'b8', 'c8', 'd8', 'e8', 'f8', 'g8', 'h8'],
               ['a1', 'b1', 'c1', 'd1', 'e1', 'f1', 'g1', 'h1']])
 
 
-print(A)
+def first_matrix(matrix):
+    i = 0
+    number = 8
+    while i <= 7:
+        j = 0
+        while j <= 8:
+            if j < 8:
+                print(A[i][j], end=" ")
+                j += 1
+            else:
+                print('|', number, end=" ")
+                number -= 1
+                j += 1
+        print()
+        i += 1
+        if i > 7:
+            indexes = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+            for k in indexes:
+                print('-', end=" ")
+            print()
+            for l in indexes:
+                print(l, end=" ")
+    print('')
+
+
+first_matrix(A)
 
 wolf_loses = []
 
 while not list(A[0]).count(1) and not wolf_loses:
-    number, move = input("Enter a number of checker and move (l/r): ").split()
+    number, move = input("Enter a number of checker and move: ").split()
     game = Game(number=number, move=move)
 
     for i, x in enumerate(B):
