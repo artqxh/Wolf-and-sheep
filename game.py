@@ -71,7 +71,7 @@ class Game:
         coordinates = np.where(A == 1)
         k = coordinates[0]
         l = coordinates[1]
-        if ((l > 0 and l < 7 ) and (A[k - 1, l - 1] == 2 and A[k + 1, l + 1] == 2 and A[k - 1, l + 1] == 2 and A[k + 1, l - 1] == 2)) \
+        if ((l > 0 and l < 7) and (A[k - 1, l - 1] == 2 and A[k + 1, l + 1] == 2 and A[k - 1, l + 1] == 2 and A[k + 1, l - 1] == 2)) \
                 or (l == 0 and (A[k - 1, l + 1] and A[k + 1, l + 1]) == 2) or (l == 7 and (A[k - 1, l - 1] and A[k + 1, l - 1]) == 2):
             wolf_loses.append('wolf loses')
             print('Sheep wins')
@@ -194,7 +194,7 @@ def first_matrix(matrix):
         j = 0
         while j <= 8:
             if j < 8:
-                print(A[i][j], end=" ")
+                print(matrix[i][j], end=" ")
                 j += 1
             else:
                 print('|', number, end=" ")
